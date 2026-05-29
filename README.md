@@ -61,8 +61,9 @@ console.log(__game.getWinner(), __game.getStats());
 线上是从本目录单独抽出的小仓库（不含 31GB monorepo 的其它内容）。改完代码后重新发布：
 
 ```bash
-# 把本目录最新内容同步到发布副本（排除参考图 / 系统文件 / dist）
-rsync -a --delete --exclude='未命名文件夹' --exclude='.DS_Store' --exclude='dist' \
+# 发布副本若不存在，先克隆：gh repo clone whayeveoo-eng/territory-clash /tmp/territory-clash
+# 同步最新内容（--exclude='.git' 必须有，否则 --delete 会删掉版本库）
+rsync -a --delete --exclude='.git' --exclude='未命名文件夹' --exclude='.DS_Store' --exclude='dist' \
   TerritoryClash/ /tmp/territory-clash/
 cd /tmp/territory-clash
 git add -A && git commit -m "更新说明" && git push
