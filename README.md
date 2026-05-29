@@ -58,17 +58,14 @@ console.log(__game.getWinner(), __game.getStats());
 
 ## 更新线上版本
 
-线上是从本目录单独抽出的小仓库（不含 31GB monorepo 的其它内容）。改完代码后重新发布：
+**只编辑本目录（`TerritoryClash/`）的源文件**——玩法/数值/画面在 `src/`，页面壳在 `index.html`。
+线上是从本目录单独抽出的小仓库（不含 31GB monorepo 的其它内容）。改完后一条命令发布：
 
 ```bash
-# 发布副本若不存在，先克隆：gh repo clone whayeveoo-eng/territory-clash /tmp/territory-clash
-# 同步最新内容（--exclude='.git' 必须有，否则 --delete 会删掉版本库）
-rsync -a --delete --exclude='.git' --exclude='未命名文件夹' --exclude='.DS_Store' --exclude='dist' \
-  TerritoryClash/ /tmp/territory-clash/
-cd /tmp/territory-clash
-git add -A && git commit -m "更新说明" && git push
-# 推送后 GitHub Pages 自动重建，约 30s 生效
+bash tools/publish.sh "这次改了什么"      # 提交说明可省略
 ```
+
+脚本会临时克隆线上仓库 → 用本目录覆盖 → 提交并推送（约 30s 后 Pages 更新）。每次现拉现推，不依赖任何常驻副本，`/tmp` 被清空也无妨。
 
 > GitHub Pages 走 https，ES module 可直接加载，**线上用的是模块化原版**，无需打包单文件。
 > `dist/` 单文件版仅用于「离线 / AirDrop 发文件」场景，见下。
