@@ -31,7 +31,13 @@ TerritoryClash/
   tools/
 ```
 
-## 快速体验
+## 在线试玩
+
+🎮 **https://whayeveoo-eng.github.io/territory-clash/**
+
+手机 / 电脑浏览器直接打开即玩，可分享。托管在 GitHub Pages（`whayeveoo-eng/territory-clash` 仓库，main 分支根目录）。
+
+## 快速体验（本地）
 
 从仓库根目录起本地服务，手机用局域网 IP 预览：
 
@@ -49,3 +55,27 @@ console.log(__game.getWinner(), __game.getStats());
 ```
 
 详见 [docs/design.md](docs/design.md)、[docs/tech.md](docs/tech.md)。
+
+## 更新线上版本
+
+线上是从本目录单独抽出的小仓库（不含 31GB monorepo 的其它内容）。改完代码后重新发布：
+
+```bash
+# 把本目录最新内容同步到发布副本（排除参考图 / 系统文件 / dist）
+rsync -a --delete --exclude='未命名文件夹' --exclude='.DS_Store' --exclude='dist' \
+  TerritoryClash/ /tmp/territory-clash/
+cd /tmp/territory-clash
+git add -A && git commit -m "更新说明" && git push
+# 推送后 GitHub Pages 自动重建，约 30s 生效
+```
+
+> GitHub Pages 走 https，ES module 可直接加载，**线上用的是模块化原版**，无需打包单文件。
+> `dist/` 单文件版仅用于「离线 / AirDrop 发文件」场景，见下。
+
+## 离线单文件版
+
+```bash
+node tools/build-standalone.mjs   # 生成 dist/index.html（约 24KB，零依赖）
+```
+
+`dist/index.html` 内联了全部 JS，可用 `file://` 直接打开 —— 适合 AirDrop 到手机离线玩（Android Chrome 直接开；iOS 需借助带浏览器的文件 App）。

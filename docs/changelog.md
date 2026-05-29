@@ -1,5 +1,12 @@
 # 领地炮战 TerritoryClash · 版本记录
 
+## 部署（2026-05-29）
+
+- 上线 GitHub Pages：**https://whayeveoo-eng.github.io/territory-clash/**
+- 决策：不推 31GB monorepo，给本游戏**单独建小仓库** `whayeveoo-eng/territory-clash`（96KB），main 分支根目录托管。
+- 经验：GitHub Pages 走 https，`.js` 以 `application/javascript` 提供，**模块化原版可直接跑**，无需单文件打包；单文件版仅留给离线 / 发文件场景。
+- 工具：用 `gh` CLI（Homebrew 装）+ device-flow 浏览器授权完成；流程见根 [游戏项目开发说明.md] 可补「部署规范」。
+
 ## v0.1.0（2026-05-28）
 
 - 建项目骨架：模块化 src 目录 + docs 文档 + assets。
